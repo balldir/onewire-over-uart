@@ -1,6 +1,7 @@
 #include "onewire.h"
 #include "devices/ds18x20.h"
 #include <stdio.h>
+#include <unistd.h>
 
 uint8_t id[OW_ROMCODE_SIZE];
 
@@ -43,6 +44,7 @@ int main(int argc, char *argv[]) {
     c ++;
 
     if(DS18X20_start_meas(DS18X20_POWER_EXTERN, NULL) == DS18X20_OK) {
+      sleep(1);
       if(DS18X20_read_decicelsius(id, &temp_dc) == DS18X20_OK) {
         printf("TEMP %3d.%01d°C\n", temp_dc / 10, temp_dc > 0 ? temp_dc % 10 : -temp_dc % 10);
         continue;
